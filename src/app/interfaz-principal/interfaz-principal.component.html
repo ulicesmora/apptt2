@@ -14,7 +14,7 @@
     </div>
 
     <div class="boton" *ngIf="respuesta == false">
-        <div class="circulo circulo-rojo" (click)="solicitud()">
+        <div class="circulo circulo-rojo" (click)="solicitud();sendData()">
             <p class="leyenda">sos</p>
         </div>
     </div>

@@ -3,6 +3,9 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterOutlet, Router } from '@angular/router';
 import { MensajesService } from '../services/mensajes.service';
+import { InicioSesionService } from '../login/inicio-sesion.service';
+import { EditarInfoService, UserUpdateDTO } from './editar-info.service';
+import { Usuario } from '../registro/registro.service';
 
 @Component({
   selector: 'app-editar-info',
@@ -12,6 +15,9 @@ import { MensajesService } from '../services/mensajes.service';
   styleUrl: './editar-info.component.css'
 })
 export class EditarInfoComponent {
+
+  userId: string | null = null;
+
   emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   telRegex = /^\d{10}$/;
   elementAlergia = false;
@@ -32,10 +38,21 @@ export class EditarInfoComponent {
   enfermedad='';
   otraEnfermedad='';
 
+  
+  userUpdateDTO: UserUpdateDTO = {};
+
   constructor(
     private mensajesService: MensajesService,
+    private inicioSesionService: InicioSesionService,
+    private editarInfoService: EditarInfoService,
     private router: Router
   ) {}
+  ngOnInit(): void {
+    // Acceder al ID y la contraseña desde el servicio
+    this.userId = this.inicioSesionService.getVariable();
+
+    console.log('ID de usuario:', this.userId);
+  }
 
   showData() {
     return (this.elementAlergia = true);
@@ -98,5 +115,28 @@ export class EditarInfoComponent {
       this.agregarMsj();
     }
   }
+
+  // obtenerUsuario(id: number) {
+  //   this.editarInfoService.obtenerUsuario(id).subscribe(
+  //     response => {
+  //       console.log(response)
+  //       this.usuario = response; // Guarda la respuesta en la variable usuario
+  //     },
+  //     error => {
+  //       console.error('Error al obtener la información del usuario:', error);
+  //     }
+  //   );
+  // }
+  
+  // updateUser (): void {
+  //   this.editarInfoService.updateUser(this.userId, this.userUpdateDTO).subscribe(
+  //     response => {
+  //       console.log('Usuario actualizado:', response);
+  //     },
+  //     error => {
+  //       console.error('Error al actualizar usuario:', error);
+  //     }
+  //   );
+  // }
 
 }

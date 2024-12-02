@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MensajesService } from '../services/mensajes.service';
 import { FormsModule } from '@angular/forms';
+import { InicioSesionService } from '../login/inicio-sesion.service';
+import { CambiarPaswordService } from './cambiar-pasword.service';
 
 @Component({
   selector: 'app-cambiar-password',
@@ -18,6 +20,8 @@ export class CambiarPasswordComponent {
   passActual='';
   passNueva='';
   passNuevar='';
+  userId: string | null = null;
+  userPassword: string | null = null;
 
   get mensajes() {
     // this.mensajesService.agregarMensaje('Cuenta creada. Revise su correo electrónico');
@@ -25,7 +29,17 @@ export class CambiarPasswordComponent {
   }
   constructor(public _matDialogRef: MatDialogRef<CambiarPasswordComponent>,
     private mensajesService: MensajesService,
+    private inicioSesionService: InicioSesionService,
+    private cambiarPasswordService: CambiarPaswordService,
   ){}
+  ngOnInit(): void {
+    // Acceder al ID y la contraseña desde el servicio
+    this.userId = this.inicioSesionService.getVariable();
+    this.userPassword = this.inicioSesionService.getPassword();
+
+    console.log('ID de usuario:', this.userId);
+    console.log('Contraseña de usuario:', this.userPassword);
+  }
 
   onNoClick(): void {
     this._matDialogRef.close();  
@@ -40,6 +54,7 @@ export class CambiarPasswordComponent {
   }
 
   agregarMsj() {
+    
     this.mensajesService.agregarMensaje("Contraseña cambiada");
     setTimeout(() => {
       this.mensajesService.agregarMensaje("");
@@ -50,4 +65,17 @@ export class CambiarPasswordComponent {
   //     this._matDialogRef
   //   }
   // }
+
+  cambiarPassword() {
+    this.cambiarPasswordService.actualizarPassword(this.userId, this.passNueva).subscribe({
+      next: (response) => {
+        console.log('Contraseña actualizada con éxito:', response);
+        // Aquí puedes agregar lógica adicional, como mostrar un mensaje de éxito
+      },
+      error: (error) => {
+        console.error('Error al actualizar la contraseña:', error);
+        // Aquí puedes agregar lógica para manejar el error, como mostrar un mensaje de error
+      }
+    });
+  }
 }
