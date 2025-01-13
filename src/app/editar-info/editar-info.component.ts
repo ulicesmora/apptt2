@@ -49,7 +49,7 @@ export class EditarInfoComponent {
   ) {}
   ngOnInit(): void {
     // Acceder al ID y la contraseña desde el servicio
-    this.userId = this.inicioSesionService.getVariable();
+    this.userId = this.inicioSesionService.getUserId();
 
     console.log('ID de usuario:', this.userId);
   }

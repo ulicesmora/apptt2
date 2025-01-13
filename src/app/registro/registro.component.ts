@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmacionComponent } from '../confirmacion/confirmacion.component';
-import { RegistroService, Usuario } from './registro.service';
+import { initialUsuario, RegistroService, Usuario } from './registro.service';
 
 @Component({
   selector: 'app-registro',
@@ -16,26 +16,7 @@ import { RegistroService, Usuario } from './registro.service';
 })
 export class RegistroComponent {
 
-  usuario: Usuario = {
-    roleId: 2,
-    emailAddress: '',
-    password: '',
-    name: '',
-    secondName: '',
-    lastName: '',
-    motherLastName: '',
-    bloodType: '',
-    birthDate: '',
-    sex: '',
-    allergies: '',
-    criticalIllnes: '',
-    status: 'false',
-    cellPhone: '',
-    auxiliaryCellPhone: '',
-    latitud: '',
-    longitud: '',
-    date: new Date() // Inicializa con la fecha actual
-  };
+  usuario: Usuario = initialUsuario;
 
   emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   telRegex = /^\d{10}$/;
@@ -92,13 +73,14 @@ export class RegistroComponent {
   constructor(
     private datosService: DatosService,
     private _matDialog: MatDialog,
-    private registroService: RegistroService,
+    private registroService: RegistroService
   ) {}
 
   confirmarDatos():void {
     this._matDialog.open(ConfirmacionComponent, {
-      width:'400px'
-    })
+      width: '400px',
+      data: this.usuario // Pasar el objeto usuario al modal
+    });
   }
 
   evaluarDato() {
@@ -109,43 +91,19 @@ export class RegistroComponent {
     } 
   }
 
-  registrarUsuario() {
-    this.registroService.crearUsuario(this.usuario).subscribe(
-      response => {
-        console.log('Usuario creado con éxito:', response);
-        // Aquí puedes agregar lógica adicional, como mostrar un mensaje de éxito
-      },
-      error => {
-        console.error('Error al crear el usuario:', error);
-        // Aquí puedes agregar lógica para manejar el error, como mostrar un mensaje de error
-      }
-    );
-  }
-
-  agregar(dato0:any,dato1:any,dato2:any,dato3:any,dato4:any,dato5:any,dato6:any,dato7:any,dato8:any,dato9:any) {
-    // nombre, apellidoPaterno, apellidoMaterno, correo, telefono, telefonoAuxiliar, genero, alergia, enfermedad, password
-    this.usuario.name=dato0;
-    this.usuario.lastName=dato1;
-    this.usuario.motherLastName=dato2;
-    this.usuario.emailAddress=dato3;
-    this.usuario.cellPhone=dato4;
-    this.usuario.auxiliaryCellPhone=dato5;
-    this.usuario.sex=dato6;
-    this.usuario.allergies=dato7;
-    this.usuario.criticalIllnes=dato8;
-    this.usuario.password=dato9;
-
-    this.registrarUsuario();
-    // this.datosService.agregarDato(dato0);
-    // this.datosService.agregarDato(dato1);
-    // this.datosService.agregarDato(dato2);
-    // this.datosService.agregarDato(dato3);
-    // this.datosService.agregarDato(dato4);
-    // this.datosService.agregarDato(dato5);
-    // this.datosService.agregarDato(dato6);
-    // this.datosService.agregarDato(dato7);
-    // this.datosService.agregarDato(dato8);
-    // this.datosService.agregarDato(dato9);
+  agregar(nombre: string, apellidoPaterno: string, apellidoMaterno: string, correo: string, telefono: string, telefonoAuxiliar: string, genero: string, alergia: string, enfermedad: string, password: string) {
+    this.usuario.name = nombre;
+    this.usuario.lastName = apellidoPaterno;
+    this.usuario.motherLastName = apellidoMaterno;
+    this.usuario.emailAddress = correo;
+    this.usuario.cellPhone = telefono;
+    this.usuario.auxiliaryCellPhone = telefonoAuxiliar;
+    this.usuario.sex = genero;
+    this.usuario.allergies = alergia;
+    this.usuario.criticalIllnes = enfermedad;
+    this.usuario.password = password;
+  
+    this.confirmarDatos();
   }
 
   camposRequeridos() {
@@ -182,6 +140,4 @@ export class RegistroComponent {
       return this.mensajePass=false;
     }
   }
-
-
 }

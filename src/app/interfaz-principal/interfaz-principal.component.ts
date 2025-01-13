@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
 import { MensajesService } from '../services/mensajes.service';
 import { InicioSesionService } from '../login/inicio-sesion.service';
 import { InterfazPrincipalService } from './interfaz-principal.service';
-// import {InterfazPrincipalService} from '../services/interfaz-principal.service';
 
 @Component({
   selector: 'app-interfaz-principal',
@@ -30,9 +29,9 @@ export class InterfazPrincipalComponent {
   ) {}
   ngOnInit(): void {
     // Acceder al ID y la contraseña desde el servicio
-    this.userId = this.inicioSesionService.getVariable();
+    this.userId = this.inicioSesionService.getUserId();
 
-    console.log('ID de usuario:', this.userId);
+    console.log(' interfaz principal ID de usuario:', this.userId);
   }
   menuLateral():void {
     this._matDialog.open(MenuComponent, {
@@ -51,7 +50,7 @@ export class InterfazPrincipalComponent {
       latitud: 19.45678,
       longitud: -99.12345
     };
-    this.userId = this.inicioSesionService.getVariable();
+    this.userId = this.inicioSesionService.getUserId();
 console.log(data, this.userId);
 
     this.interfazservice.actualizarStatus(this.userId ,'true', '19.45678','-99.12345').subscribe(

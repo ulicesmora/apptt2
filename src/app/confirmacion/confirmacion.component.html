@@ -1,84 +1,75 @@
 <section class="ventana-modal">
-<div class="contenido-modal">
-<button class="modal-close" (click)="onNoClick()">&times;</button>
-<h3>Esta es la información que ingresó</h3>
-<section class="credentials">
-    <form action="" class="login">
-        <label for="nombre">Nombre(s)</label>
-        <input type="text" name="nombre" id="nombre" disabled [value]="datos[0]">
-
-        <label for="apellido-paterno">Apellido Paterno</label>
-        <input type="text" name="apellido-paterno" id="apellido-paterno" disabled [value]="datos[1]">
-
-        <label for="apellido-materno">Apellido Materno</label>
-        <input type="text" name="apellido-materno" id="apellido-materno" disabled [value]="datos[2]">
-
-        <label for="correo">Correo</label>
-        <input type="email" name="correo" id="correo" disabled [value]="this.datos[3]">
-
-        <label for="telefono">Teléfono</label>
-        <input type="tel" name="telefono" id="telefono" disabled [value]="this.datos[4]">
-
-        <label for="telefono-auxiliar">Teléfono familiar</label>
-        <input type="tel" name="telefono" id="telefono-auxiliar" disabled [value]="this.datos[5]">
-
-        <label for="genero">Género </label>
-        <!-- <select name="sexo" id="sexo">
-            <option value="">Selecciona una opción</option>
-            <option value="Masculino">Masculino</option>
-            <option value="Femenino">Femenino</option>
-        </select> -->
-        <div class="genero" [ngSwitch]="datos[6]">
+    <div class="contenido-modal">
+      <button class="modal-close" (click)="onNoClick()">&times;</button>
+      <h3>Esta es la información que ingresó</h3>
+      <section class="credentials">
+        <form action="" class="login">
+          <label for="nombre">Nombre(s)</label>
+          <input type="text" name="nombre" id="nombre" disabled [value]="usuario.name">
+  
+          <label for="apellido-paterno">Apellido Paterno</label>
+          <input type="text" name="apellido-paterno" id="apellido-paterno" disabled [value]="usuario.lastName">
+  
+          <label for="apellido-materno">Apellido Materno</label>
+          <input type="text" name="apellido-materno" id="apellido-materno" disabled [value]="usuario.motherLastName">
+  
+          <label for="correo">Correo</label>
+          <input type="email" name="correo" id="correo" disabled [value]="usuario.emailAddress">
+  
+          <label for="telefono">Teléfono</label>
+          <input type="tel" name="telefono" id="telefono" disabled [value]="usuario.cellPhone">
+  
+          <label for="telefono-auxiliar">Teléfono familiar</label>
+          <input type="tel" name="telefono" id="telefono-auxiliar" disabled [value]="usuario.auxiliaryCellPhone">
+  
+          <label for="genero">Género </label>
+          <div class="genero" [ngSwitch]="usuario.sex">
             <div *ngSwitchCase="'Masculino'">
-                <label><input type="radio" name="genero" checked>Masc.</label>
-                <label><input type="radio" name="genero" disabled>Fem.</label>
-                <label><input type="radio" name="genero" disabled>No especificar</label>
+              <label><input type="radio" name="genero" checked>Masc.</label>
+              <label><input type="radio" name="genero" disabled>Fem.</label>
+              <label><input type="radio" name="genero" disabled>No especificar</label>
             </div>
             <div *ngSwitchCase="'Femenino'">
-                <label><input type="radio" name="genero" disabled>Masc.</label>
-                <label><input type="radio" name="genero" checked>Fem.</label>
-                <label><input type="radio" name="genero" disabled>No especificar</label>
+              <label><input type="radio" name="genero" disabled>Masc.</label>
+              <label><input type="radio" name="genero" checked>Fem.</label>
+              <label><input type="radio" name="genero" disabled>No especificar</label>
             </div>
             <div *ngSwitchCase="'No especificar'">
-                <label><input type="radio" name="genero" disabled>Masc.</label>
-                <label><input type="radio" name="genero" disabled>Fem.</label>
-                <label><input type="radio" name="genero" checked>No especificar</label>
+              <label><input type="radio" name="genero" disabled>Masc.</label>
+              <label><input type="radio" name="genero" disabled>Fem.</label>
+              <label><input type="radio" name="genero" checked>No especificar</label>
             </div>
-        </div>
-
-        <label for="alergia">Alergias </label>
-        <select name="alergia" id="alergia" disabled>
-            <option [value]="datos[7]">{{datos[7]}}</option>
-        </select>
-
-        <!-- <input *ngIf="elementAlergia == true" type="text" name="otra-alergia" id="otra-alergia" placeholder="Ingrese su alergia"> -->
-
-        <label for="enfermedad">Enfermedades crónicas </label>
-        <select name="enfermedad" id="enfermedad" disabled>
-            <option [value]="datos[8]">{{datos[8]}}</option>
-        </select>
-
-        <!-- <input *ngIf="elementEnfermedad == true" type="text" name="otra-enfermedad" id="otra-enfermedad" disabled> -->
-
-        <input type="hidden" name="password" id="password" disabled [value]="this.datos[9]">
-        
-        <p>¿Resistrar estos datos?</p>
-        <a class="btn-login" routerLink="/login" (click)="onNoClick(); agregarMsj();">
+          </div>
+  
+          <label for="alergia">Alergias </label>
+          <select name="alergia" id="alergia" disabled>
+            <option [value]="usuario.allergies">{{usuario.allergies}}</option>
+          </select>
+  
+          <label for="enfermedad">Enfermedades crónicas </label>
+          <select name="enfermedad" id="enfermedad" disabled>
+            <option [value]="usuario.criticalIllnes">{{usuario.criticalIllnes}}</option>
+          </select>
+  
+          <input type="hidden" name="password" id="password" disabled [value]="usuario.password">
+          
+          <p>¿Resistrar estos datos?</p>
+          <a class="btn-login" routerLink="/login" (click)="onNoClick(); agregarMsj();">
             <!-- <input type="submit" value="Continuar" routerLink="/login"> -->
             <p>Continuar</p>
-        </a>
-
-        
-    </form>
-    <section class="inferior">
-        <!-- <a class="btn-login" routerLink="/registro"> -->
-        <a class="btn-login" (click)="onNoClick()">
+          </a>
+  
+          
+        </form>
+        <section class="inferior">
+          <!-- <a class="btn-login" routerLink="/registro"> -->
+          <a class="btn-login" (click)="onNoClick()">
             <!-- <input type="submit" value="Continuar" routerLink="/login"> -->
             <p>Regresar</p>
-        </a>
-    </section>
-    
-  </section> 
+          </a>
+        </section>
         
-</div>
-</section>
+      </section> 
+          
+    </div>
+  </section>

@@ -64,7 +64,7 @@
         <p class="campos-vacios" *ngIf="mensajePass == true">La contraseña debe tener ente 8 y 16 caracteres</p>
         
         <!-- <a class="btn-login" routerLink="/confirmacion"> -->
-        <a class="btn-login" (click)="confirmarDatos(); agregar(nombre, apellidoPaterno, apellidoMaterno, correo, telefono, telefonoAuxiliar, genero, alergia, enfermedad, password);camposRequeridos();">
+        <a class="btn-login" (click)="agregar(nombre, apellidoPaterno, apellidoMaterno, correo, telefono, telefonoAuxiliar, genero, alergia, enfermedad, password);camposRequeridos();">
             <!-- <input type="submit" value="Continuar" routerLink="/login"> -->
             <p>Confirmar Datos</p>
         </a>

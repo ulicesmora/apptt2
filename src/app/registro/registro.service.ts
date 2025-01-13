@@ -27,7 +27,7 @@ export interface Usuario {
   lastName: string;
   motherLastName: string;
   bloodType: string;
-  birthDate: string; // Puedes usar Date si prefieres
+  birthDate: string; 
   sex: string;
   allergies: string;
   criticalIllnes: string;
@@ -36,5 +36,27 @@ export interface Usuario {
   auxiliaryCellPhone: string;
   latitud: string;
   longitud: string;
-  date: Date; // Asegúrate de que el formato sea compatible con el backend
+  date: Date; 
 }
+
+// Inicializar un objeto con la estructura de Usuario
+export const initialUsuario: Usuario = {
+  roleId: 2,
+  emailAddress: '',
+  password: '',
+  name: '',
+  secondName: '',
+  lastName: '',
+  motherLastName: '',
+  bloodType: '',
+  birthDate: '',
+  sex: '',
+  allergies: '',
+  criticalIllnes: '',
+  status: 'false',
+  cellPhone: '',
+  auxiliaryCellPhone: '',
+  latitud: '',
+  longitud: '',
+  date: new Date() // Inicializa con la fecha actual
+};
