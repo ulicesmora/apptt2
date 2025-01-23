@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { MensajesService } from '../services/mensajes.service';
 import { RecuperarService } from './recuperar.service';
 import { CorreoService } from '../services/correo.service';
+import { API_URL } from '../app.config';
 
 @Component({
   selector: 'app-recuperar',
@@ -56,7 +57,7 @@ export class RecuperarComponent {
       this.recuperarService.recoverPassword(this.correo).subscribe(
         (response) => {
           const token = response; // Ensure token is treated as a string
-          const link = `http://localhost:59755/recuperar-contrasena/${token}`;
+          const link = `${API_URL}/web/recuperar-contrasena/${token}`;
           this.agregarMsj();
           console.log('Token received:', token);
           // Send recovery email with link containing the token
