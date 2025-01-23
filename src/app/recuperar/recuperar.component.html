@@ -5,12 +5,11 @@
             <article class="informacion-ayuda">
                 <form action="" class="recuperar">
                     <label for="correore">Correo</label>
-                    <input type="email" name="correo" [(ngModel)]="correo" id="correore" placeholder="correo@correo.com"  (keyup)="validarCorreo()">
+                    <input type="email" name="correo" [(ngModel)]="correo" id="correore" placeholder="correo@correo.com" (keyup)="validarCorreo()">
                     <p class="campos-vacios" *ngIf="mensajeCorreo == true">Formato de correo no válido</p>
-                    <a *ngIf="valido == true" class="btn-login" (click)="onNoClick(); agregarMsj();">
-                        <!-- <input type="submit" value="Continuar" routerLink="/login"> -->
-                         <p class="btn">Continuar</p>
-                      </a>
+                    <button type="button" class="btn-login" (click)="recoverPassword()" [disabled]="!valido">
+                        <p class="btn">Continuar</p>
+                    </button>
                 </form>
             </article>
         </div>
